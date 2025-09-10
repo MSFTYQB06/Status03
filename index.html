@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Photo Slideshow (TV Compatible)</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 10px;
+      text-align: center;
+    }
+
+    img {
+      width: 90%;
+      max-width: 1000px;
+      height: auto;
+      border: 4px solid white;
+      margin: 10px auto;
+    }
+
+    .legend {
+      background: #222;
+      padding: 10px;
+      margin: 10px auto;
+      max-width: 1000px;
+      font-size: 16px;
+      line-height: 1.6;
+      text-align: left;
+      border-radius: 8px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      img {
+        width: 100%;
+      }
+
+      .legend {
+        font-size: 14px;
+      }
+
+      button {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2 style="margin-bottom: 5px;">Photo Slideshow</h2>
+
+  <img id="photo" src="images/01.jpg" alt="Photo">
+
+  <div class="buttons">
+    <button onclick="previousPhoto()">Previous</button>
+    <button onclick="nextPhoto()">Next</button>
+    <button onclick="startSlideshow()">Play</button>
+    <button onclick="stopSlideshow()">Stop</button>
+  </div>
+
+  <div class="legend">
+    <p><strong>Legend:</strong></p>
+    <ul>
+      <li><strong>Equipment on site:</strong> BLUE</li>
+      <li><strong>Red Tag:</strong> PURPLE</li>
+      <li><strong>Cable Pulling:</strong> GRAY</li>
+      <li><strong>Connected:</strong> ORANGE</li>
+      <li><strong>Yellow Tag:</strong> YELLOW</li>
+      <li><strong>Conditional Yellow Tag:</strong> BROWN</li>
+      <li><strong>Energized:</strong> RED (energized), GREEN (open)</li>
+    </ul>
+  </div>
+
+  <script>
+    var totalPhotos = 9;
+    var index = 1;
+    var interval = null;
+
+    function showPhoto() {
+      var filename = (index < 10 ? '0' + index : index) + '.jpg';
+      document.getElementById('photo').src = 'images/' + filename;
+    }
+
+    function nextPhoto() {
+      index = (index % totalPhotos) + 1;
+      showPhoto();
+    }
+
+    function previousPhoto() {
+      index = (index - 2 + totalPhotos) % totalPhotos + 1;
+      showPhoto();
+    }
+
+    function startSlideshow() {
+      stopSlideshow();
+      interval = setInterval(nextPhoto, 10000);
+    }
+
+    function stopSlideshow() {
+      if (interval) {
+        clearInterval(interval);
+        interval = null;
+      }
+    }
+  </script>
+
+</body>
+</html>
