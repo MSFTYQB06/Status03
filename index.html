@@ -7,83 +7,109 @@
     body {
       background: #111;
       color: white;
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 10px;
-      text-align: center;
+      padding: 20px;
     }
 
-    img {
-      width: 90%;
-      max-width: 1000px;
+    .main {
+      display: table;
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .photo-cell {
+      display: table-cell;
+      width: 75%;
+      vertical-align: top;
+      padding-right: 20px;
+    }
+
+    .photo-cell img {
+      width: 100%;
+      max-width: 100%;
       height: auto;
       border: 4px solid white;
-      margin: 10px auto;
     }
 
-    .legend {
+    .legend-cell {
+      display: table-cell;
+      width: 25%;
       background: #222;
-      padding: 10px;
-      margin: 10px auto;
-      max-width: 1000px;
+      padding: 15px;
+      border-radius: 8px;
       font-size: 16px;
       line-height: 1.6;
-      text-align: left;
-      border-radius: 8px;
+    }
+
+    .legend-cell ul {
+      padding-left: 20px;
     }
 
     .buttons {
+      text-align: center;
       margin-top: 20px;
     }
 
     button {
-      padding: 10px 20px;
-      font-size: 18px;
+      padding: 12px 24px;
       margin: 5px;
+      font-size: 18px;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      background: white;
+      color: black;
       cursor: pointer;
     }
 
-    @media (max-width: 768px) {
-      img {
+    button:focus {
+      outline: none;
+    }
+
+    @media (max-width: 800px) {
+      .main {
+        display: block;
+      }
+
+      .photo-cell,
+      .legend-cell {
+        display: block;
         width: 100%;
       }
 
-      .legend {
-        font-size: 14px;
-      }
-
-      button {
-        font-size: 16px;
+      .legend-cell {
+        margin-top: 20px;
       }
     }
   </style>
 </head>
 <body>
 
-  <h2 style="margin-bottom: 5px;">Photo Slideshow</h2>
+  <div class="main">
+    <div class="photo-cell">
+      <img id="photo" src="images/01.jpg" alt="Slideshow Image">
+    </div>
 
-  <img id="photo" src="images/01.jpg" alt="Photo">
+    <div class="legend-cell">
+      <strong>Legend:</strong>
+      <ul>
+        <li><strong>Equipment on site:</strong> BLUE</li>
+        <li><strong>Red Tag:</strong> PURPLE</li>
+        <li><strong>Cable Pulling:</strong> GRAY</li>
+        <li><strong>Connected:</strong> ORANGE</li>
+        <li><strong>Yellow Tag:</strong> YELLOW</li>
+        <li><strong>Conditional Yellow Tag:</strong> BROWN</li>
+        <li><strong>Energized:</strong> RED (energized), GREEN (open)</li>
+      </ul>
+    </div>
+  </div>
 
   <div class="buttons">
     <button onclick="previousPhoto()">Previous</button>
     <button onclick="nextPhoto()">Next</button>
     <button onclick="startSlideshow()">Play</button>
     <button onclick="stopSlideshow()">Stop</button>
-  </div>
-
-  <div class="legend">
-    <p><strong>Legend:</strong></p>
-    <ul>
-      <li><strong>Equipment on site:</strong> BLUE</li>
-      <li><strong>Red Tag:</strong> PURPLE</li>
-      <li><strong>Cable Pulling:</strong> GRAY</li>
-      <li><strong>Connected:</strong> ORANGE</li>
-      <li><strong>Yellow Tag:</strong> YELLOW</li>
-      <li><strong>Conditional Yellow Tag:</strong> BROWN</li>
-      <li><strong>Energized:</strong> RED (energized), GREEN (open)</li>
-    </ul>
   </div>
 
   <script>
@@ -121,3 +147,5 @@
 
 </body>
 </html>
+
+
