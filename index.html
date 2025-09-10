@@ -1,67 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Slideshow</title>
+  <title>Photo Slideshow (TV Compatible)</title>
   <style>
     body {
-      background-color: black;
+      background: #111;
       color: white;
       font-family: Arial, sans-serif;
-      text-align: center;
+      margin: 0;
+      padding: 20px;
     }
 
-    img {
-      width: 90%;
-      max-width: 1000px;
-      border: 3px solid white;
-      margin: 20px 0;
-    }
-
-    .legend {
-      text-align: left;
+    .main {
+      display: table;
+      width: 100%;
+      max-width: 1600px;
       margin: 0 auto;
-      max-width: 1000px;
-      background-color: #222;
-      padding: 10px;
-      font-size: 18px;
+    }
+
+    .photo-cell {
+      display: table-cell;
+      width: 75%;
+      vertical-align: top;
+      padding-right: 20px;
+    }
+
+    .photo-cell img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border: 4px solid white;
+    }
+
+    .legend-cell {
+      display: table-cell;
+      width: 25%;
+      background: #222;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .legend-cell ul {
+      padding-left: 20px;
+    }
+
+    .legend-cell li {
+      margin-bottom: 10px;
     }
 
     .buttons {
+      text-align: center;
       margin-top: 20px;
     }
 
-    input[type="button"] {
-      padding: 10px 20px;
-      font-size: 18px;
+    button {
+      padding: 12px 24px;
       margin: 5px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      background: white;
+      color: black;
+      cursor: pointer;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    @media (max-width: 800px) {
+      .main {
+        display: block;
+      }
+
+      .photo-cell,
+      .legend-cell {
+        display: block;
+        width: 100%;
+      }
+
+      .legend-cell {
+        margin-top: 20px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h2>Photo Slideshow</h2>
+  <div class="main">
+    <div class="photo-cell">
+      <img id="photo" src="images/01.jpg" alt="Slideshow Image">
+    </div>
 
-  <img id="photo" src="images/01.jpg" alt="Slideshow Image">
-
-  <div class="buttons">
-    <input type="button" value="Previous" onclick="previousPhoto()">
-    <input type="button" value="Next" onclick="nextPhoto()">
-    <input type="button" value="Play" onclick="startSlideshow()">
-    <input type="button" value="Stop" onclick="stopSlideshow()">
+    <div class="legend-cell">
+      <strong>Legend:</strong>
+      <ul>
+        <li><strong>Equipment on site:</strong> <span style="color: blue;">BLUE</span></li>
+        <li><strong>Red Tag:</strong> <span style="color: purple;">PURPLE</span></li>
+        <li><strong>Cable Pulling:</strong> <span style="color: gray;">GRAY</span></li>
+        <li><strong>Connected:</strong> <span style="color: orange;">ORANGE</span></li>
+        <li><strong>Yellow Tag:</strong> <span style="color: yellow;">YELLOW</span></li>
+        <li><strong>Conditional Yellow Tag:</strong> <span style="color: brown;">BROWN</span></li>
+        <li><strong>Energized:</strong> <span style="color: red;">RED</span> (energized), <span style="color: green;">GREEN</span> (open)</li>
+      </ul>
+    </div>
   </div>
 
-  <div class="legend">
-    <p><b>Legend:</b></p>
-    <ul>
-      <li><b>Equipment on site:</b> <font color="blue">BLUE</font></li>
-      <li><b>Red Tag:</b> <font color="purple">PURPLE</font></li>
-      <li><b>Cable Pulling:</b> <font color="gray">GRAY</font></li>
-      <li><b>Connected:</b> <font color="orange">ORANGE</font></li>
-      <li><b>Yellow Tag:</b> <font color="yellow">YELLOW</font></li>
-      <li><b>Conditional Yellow Tag:</b> <font color="brown">BROWN</font></li>
-      <li><b>Energized:</b> <font color="red">RED</font> (energized), <font color="green">GREEN</font> (open)</li>
-    </ul>
+  <div class="buttons">
+    <button onclick="previousPhoto()">Previous</button>
+    <button onclick="nextPhoto()">Next</button>
+    <button onclick="startSlideshow()">Play</button>
+    <button onclick="stopSlideshow()">Stop</button>
   </div>
 
   <script>
@@ -70,7 +122,7 @@
     var interval = null;
 
     function showPhoto() {
-      var filename = index < 10 ? '0' + index + '.jpg' : index + '.jpg';
+      var filename = (index < 10 ? '0' + index : index) + '.jpg';
       document.getElementById('photo').src = 'images/' + filename;
     }
 
@@ -80,8 +132,7 @@
     }
 
     function previousPhoto() {
-      index = index - 1;
-      if (index < 1) index = totalPhotos;
+      index = (index - 2 + totalPhotos) % totalPhotos + 1;
       showPhoto();
     }
 
